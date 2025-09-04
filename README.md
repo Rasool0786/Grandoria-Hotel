@@ -16,8 +16,8 @@
 ---
 
 ## 🛠 تکنولوژی‌ها
-- [Python 3.x](https://www.python.org/)  
-- [Django 5.x](https://www.djangoproject.com/)  
+- [Python 3.11](https://www.python.org/)  
+- [Django 5.2](https://www.djangoproject.com/)  
 - [SQLite / PostgreSQL] (قابل انتخاب)  
 - HTML5, CSS3, Bootstrap / Tailwind  
 - Pillow برای مدیریت تصاویر  
@@ -27,8 +27,8 @@
 ## ⚙️ نصب و راه‌اندازی
 ```bash
 # 1️⃣ کلون کردن پروژه
-git clone https://github.com/USERNAME/PROJECT-NAME.git
-cd PROJECT-NAME
+git clone https://github.com/Rasool0786/Grandoria-Hotel.git
+cd Grandoria-Hotel
 
 # 2️⃣ ساخت محیط مجازی
 python -m venv venv
