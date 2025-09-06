@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 
 class Room(models.Model):
@@ -23,6 +24,10 @@ class Room(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("room_detail", kwargs={"pk": self.pk})
+    
 
 
 class Amenity(models.Model):
