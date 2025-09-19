@@ -7,10 +7,10 @@ def get_upload_path(instance, filename):
 
 class GalleryImage(models.Model):
     TITLE_CHOICES = (
-        ("rm", "Room"),
-        ("as", "Amenities"),
-        ("dr", "Dining"),
-        ("ex", "Exterior"),
+        ("rooms", "Room"),
+        ("amenities", "Amenities"),
+        ("dining", "Dining"),
+        ("exterior", "Exterior"),
     )
     SIZE_CHOICES = (
         ("small", "Small (col-4)"),
@@ -20,7 +20,7 @@ class GalleryImage(models.Model):
 
     title = models.CharField(max_length=9, choices=TITLE_CHOICES, blank=True)
     image = models.ImageField(upload_to=get_upload_path)
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=False, null=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
@@ -32,9 +32,9 @@ class GalleryImage(models.Model):
     @property
     def css_filter(self):
         mapping = {
-            "rm": "rooms",
-            "as": "amenities",
-            "dr": "dining",
-            "ex": "exterior",
+            "rooms": "rooms",
+            "amenities": "amenities",
+            "dining": "dining",
+            "exterior": "exterior",
         }
         return mapping.get(self.title, "")

@@ -1,45 +1,50 @@
 {% extends '_base.html' %}
 
-{% load gallery_tags %}
 
-{% comment %} {% for image in all_images|filter_by_title:'rm' %}
-  <img src="{{ image.image.url }}" alt="room picture" />
-{% endfor %} {% endcomment %}
+{% block page_title %}Gallery{% endblock page_title %}
 
 {% block content %}
-  <!-- Gallery Section -->
-  <section id="gallery" class="gallery section">
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-      <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-        <ul class="hotel-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-          <li data-filter="*" class="{% if active_filter == '*' %}filter-active{% endif %}">All Photos</li>
-          <li data-filter=".filter-rooms" class="{% if active_filter == 'rooms' %}filter-active{% endif %}">Rooms</li>
-          <li data-filter=".filter-amenities" class="{% if active_filter == 'amenities' %}filter-active{% endif %}">Amenities</li>
-          <li data-filter=".filter-dining" class="{% if active_filter == 'dining' %}filter-active{% endif %}">Dining</li>
-          <li data-filter=".filter-exterior" class="{% if active_filter == 'exterior' %}filter-active{% endif %}">Exterior</li>
-        </ul>
-        <!-- End Hotel Gallery Filters -->
+<!-- Page Title -->
+{% include "page_title.html" with page_name="Gallery" %}
+<!-- End Page Title -->
 
-        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-          {% for image in all_images %}
-            <div class="col-lg-{% if image.size == 'small' %}4{% elif image.size == 'medium' %}8{% else %}12{% endif %} col-md-6 gallery-item isotope-item {% if image.title == 'rm' %}filter-rooms{% elif image.title == 'as' %}filter-amenities{% elif image.title == 'dr' %}filter-dining{% elif image.title == 'ex' %}filter-exterior{% endif %}">
-              <div class="gallery-wrapper">
-                <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.description|default:'Gallery Picture' }}" />
-                <div class="gallery-overlay">
-                  <a href="{{ image.image.url }}" class="glightbox" title="{{ image.description|default:'Gallery Picture' }}"><i class="bi bi-eye"></i></a>
-                </div>
+<!-- Gallery Section -->
+<section id="gallery" class="gallery section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+      
+      <!-- Filters -->
+      <ul class="hotel-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+        <li data-filter="*" class="{% if active_filter == '*' %}filter-active{% endif %}">All Photos</li>
+        <li data-filter=".filter-rooms" class="{% if active_filter == 'rooms' %}filter-active{% endif %}">Rooms</li>
+        <li data-filter=".filter-amenities" class="{% if active_filter == 'amenities' %}filter-active{% endif %}">Amenities</li>
+        <li data-filter=".filter-dining" class="{% if active_filter == 'dining' %}filter-active{% endif %}">Dining</li>
+        <li data-filter=".filter-exterior" class="{% if active_filter == 'exterior' %}filter-active{% endif %}">Exterior</li>
+      </ul>
+      <!-- End Hotel Gallery Filters -->
+
+      <!-- Gallery Items -->
+      <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+        {% for image in all_images %}
+          <div class="col-lg-{% if image.size == 'small' %}4{% elif image.size == 'medium' %}8{% else %}12{% endif %} col-md-6 gallery-item isotope-item filter-{{ image.title }}">
+            <div class="gallery-wrapper">
+              <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.description|default:'Gallery Picture' }}" />
+              <div class="gallery-overlay">
+                <a href="{{ image.image.url }}" class="glightbox" title="{{ image.description|default:'Gallery Picture' }}">
+                  <i class="bi bi-eye"></i>
+                </a>
               </div>
             </div>
-            {% empty %}
-            <div class="col-12 text-center">
-              <p>No images found in the gallery.</p>
-            </div>
-          {% endfor %}
-          <!-- End Gallery Item -->
-        </div>
-        <!-- End Hotel Gallery Items Container -->
+          </div>
+        {% empty %}
+          <div class="col-12 text-center">
+            <p>No images found in the gallery.</p>
+          </div>
+        {% endfor %}
       </div>
+      <!-- End Gallery Items -->
     </div>
-  </section>
-  <!-- /Gallery Section -->
+  </div>
+</section>
+<!-- /Gallery Section -->
 {% endblock %}

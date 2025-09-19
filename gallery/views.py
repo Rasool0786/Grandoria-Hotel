@@ -1,5 +1,4 @@
 from django.views.generic import ListView
-
 from .models import GalleryImage
 
 
@@ -10,19 +9,18 @@ class GalleryListView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        queryset = GalleryImage.objects.filter(active=True).order_by(
-            "-datetime_created"
-        )
+        queryset = GalleryImage.objects.filter(active=True).order_by("-datetime_created")
 
         filter_param = self.request.GET.get("filter", "*")
         if filter_param != "*":
-            filter_mapping = {
-                "rm": "rooms",
-                "as": "amenities",
-                "dr": "dining",
-                "ex": "exterior",
+            # از فیلد title برای فیلتر استفاده می‌کنیم
+            reverse_mapping = {
+                "rooms": "rm",
+                "amenities": "as",
+                "dining": "dr",
+                "exterior": "ex",
             }
-            title_value = filter_mapping.get(filter_param)
+            title_value = reverse_mapping.get(filter_param)
             if title_value:
                 queryset = queryset.filter(title=title_value)
 
@@ -30,6 +28,7 @@ class GalleryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["all_images"] = GalleryImage.objects.filter(active=True)
+        # از همان queryset فیلتر شده استفاده می‌کنیم
+        context["all_images"] = context["images"]
         context["active_filter"] = self.request.GET.get("filter", "*")
         return context
