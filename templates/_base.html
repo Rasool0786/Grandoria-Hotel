@@ -80,10 +80,10 @@
                 <li><a href="restaurant.html">Restaurant</a></li>
                 <li><a href="offers.html">Offers</a></li>
                 <li><a href="events.html">Events</a></li>
-                <li><a href="{% url 'gallery:gallery_list' %}">Gallery</a></li>
+                <li><a href="{% url 'gallery:gallery_list' %}" class="{% if request.path == '/gallery/' %}active{% endif %}">Gallery</a></li>
                 <li><a href="booking.html">Booking</a></li>
-                <li><a href="terms.html" class="active">Terms Page</a></li>
-                <li><a href="privacy.html">Privacy Page</a></li>
+                <li><a href="{% url "core:terms_of_service" %}" class="{% if request.path == '/terms_of_service/' %}active{% endif %}">Terms Page</a></li>
+                <li><a href="{% url "core:privacy_policy" %}" class="{% if request.path == '/privacy_policy/' %}active{% endif %}">Privacy Page</a></li>
               </ul>
             </li>
             <li>
